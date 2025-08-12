@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Post, Req, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import type { Request, Response } from 'express';
 
@@ -8,12 +8,18 @@ export class UserController {
   @Get('/users')
   findAll(@Req() req: Request) {
     console.log(req.query);
-    
     return 'Get users success';
+  }
+  @Get('/users/:id')
+  findById(@Param('id') id: string) {
+    console.log(id);
+    // Xử lý trả lỗi về cho client
+    // 
+    throw new NotFoundException("user not found");
   }
   //Override status code bằng res của express
 //   @Post('/users')
-//   create(@Res() res: Response) {
+//   create(@Res() res: Response) 
 //     res.status(201).json('Create users success');
 //   }
   // Override status code bằng HttpCode decorater
