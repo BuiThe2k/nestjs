@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Post, Req, Res } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Post, Query, Req, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import type { Request, Response } from 'express';
 
@@ -6,15 +6,13 @@ import type { Request, Response } from 'express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get('/users')
-  findAll(@Req() req: Request) {
-    console.log(req.query);
-    return 'Get users success';
+  findAll(@Query() query: any) {
+    return this.userService.findAllWithCondition();
   }
   @Get('/users/:id')
   findById(@Param('id') id: string) {
     console.log(id);
     // Xử lý trả lỗi về cho client
-    // 
     throw new NotFoundException("user not found");
   }
   //Override status code bằng res của express
