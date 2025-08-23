@@ -15,10 +15,12 @@ export class User {
     id: number;
     @Column({
       name: 'first_name', // Khai báo tên column dưới db
+      nullable: true, // Có thể null
     })
     firstName: String;
     @Column({
       name: 'last_name',
+      nullable: true, // Có thể null
     })
     lastName: String;
     @Column({
